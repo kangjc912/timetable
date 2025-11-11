@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './App.css';
 
+import Timetable from './components/Timetable';
 
 function App() {
     const [timeblocks, setTimeblocks] = useState([]);
@@ -35,16 +36,13 @@ function App() {
 
     return (
         <div className='App'>
-          <header className='App-header'>
-            <h1>Timeblocks</h1>
-            <ul>
-                {timeblocks.map(block => (
-                    <li key={block.id}>
-                      {block.teacher} 선생님 ({block.startTime})
-                    </li>
-                ))}
-            </ul>
-
+            <header className='App-header'>
+              <h1>Timeblocks</h1>
+            </header>
+            <main>
+                <Timetable timeblocks={timeblocks} />
+            </main>
+            
             <hr />
 
             <h1>Teaching Assistants</h1>
@@ -55,7 +53,6 @@ function App() {
                     </li>
                 ))}
             </ul>
-          </header>
         </div>
     );
 }
