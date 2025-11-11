@@ -1,7 +1,7 @@
 import React from 'react';
 import './Timetable.css';
 
-const Timetable = ({ timeblocks }) => {
+const Timetable = ({ timeblocks, tas, assignments, onAssign }) => {
     
     const blocksByday = {
         '월': timeblocks.filter(block => block.day === '월'),
@@ -29,16 +29,40 @@ const Timetable = ({ timeblocks }) => {
                     <tr>
                         {days.map(day => (
                             <td key={day} className='day-column'>
-                                {blocksByday[day].map(block => (
-                                    <div key={block.id} className="timeblock">
-                                        <strong>{block.startTime} - {block.endTime}</strong><br />
-                                        선생님: {block.teacher}<br />
-                                        <div className="ta-slot">
-                                            필요 조교 수: {block.requiredTAs}
-                                        </div>
+                                {blocksByday[day].map(block => {
 
-                                    </div>
-                                ))}
+                                    const assignedTaId = assignments[block.id];
+                                    const availablTAs = tas;
+
+                                    return (
+                                        <div key={block.id} className="timeblock">
+                                            <strong> {block.teacher} 선생님 </strong>
+                                            <p>{block.startTime} - {block.endTime} </p>
+
+                                            <div className="ta-slot">
+                                                <select
+                                                    value={assignedTaId || ""}
+                                                    onChange={(e) => onAssign(block.id, e.target.value)}
+                                                >
+                                                    <option value="">조교 선택</option>
+                                                    {availablTAs.map(ta => (
+                                                        <option key={ta.id} value={ta.id}>
+                                                            {ta.name}
+                                                        </option>
+                                                    ))}   
+
+                                                </select>
+
+                                                {assignedTaId && (
+                                                    <p className="assgined-ta">
+                                                        배정됨: {tas.find(ta => ta.id === assignedTaId)?.name}
+                                                    </p>
+                                                )}
+                                            </div>
+                                        </div>
+                                    );
+
+                                })}
                             </td>
                         ))}
                     </tr>

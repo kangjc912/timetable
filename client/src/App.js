@@ -7,6 +7,8 @@ import Timetable from './components/Timetable';
 function App() {
     const [timeblocks, setTimeblocks] = useState([]);
     const [tas, setTas] = useState([]);
+
+    const [assignments, setAssignments] = useState({});
     const [loading, setLoading] = useState(true);
 
 
@@ -34,13 +36,28 @@ function App() {
         return <div>Loading...</div>;
     }
 
+    const handleAssign = (timeblockId, taId) => {
+      const newAssignments = { 
+        assignments,
+        [timeblockId]: taId
+      };
+      setAssignments(newAssignments);
+      console.log('New Assignments:', newAssignments);
+    };
+
+
     return (
         <div className='App'>
             <header className='App-header'>
               <h1>Timeblocks</h1>
             </header>
             <main>
-                <Timetable timeblocks={timeblocks} />
+                <Timetable 
+                  timeblocks={timeblocks} 
+                  tas={tas}
+                  assignments={assignments}
+                  onAssign={handleAssign}
+                />
             </main>
             
             <hr />
