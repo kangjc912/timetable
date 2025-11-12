@@ -36,10 +36,34 @@ function App() {
         return <div>Loading...</div>;
     }
 
-    const handleAssign = (timeblockId, taId) => {
+    const handleAssign = (timeblockId, taId,isChecked) => {
+
+      const currentTAs = assignments[timeblockId] || [];
+
+
+      let newTAs = [];
+      
+      if(isChecked) {
+        if(currentTAs.length>=2) {
+          alert("최대 2명까지만 가능");
+          return;
+        }
+
+        newTAs = [...currentTAs,taId];
+      }else {
+        if(currentTAs.length<=1) {
+          alert("최소 1명 필요");
+          return;
+        }
+        newTAs = currentTAs.filter(id => id !== taId);
+      }
+
+
+      
+
       const newAssignments = { 
-        assignments,
-        [timeblockId]: taId
+        ...assignments,
+        [timeblockId]: newTAs
       };
       setAssignments(newAssignments);
       console.log('New Assignments:', newAssignments);

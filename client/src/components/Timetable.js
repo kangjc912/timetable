@@ -32,7 +32,7 @@ const Timetable = ({ timeblocks, tas, assignments, onAssign }) => {
                                 {blocksByday[day].map(block => {
 
                                     const assignedTaId = assignments[block.id];
-                                    const availablTAs = tas.filter(ta => 
+                                    const availableTAs = tas.filter(ta => 
                                         ta.availableBlockIds.includes(block.id)
                                     );
 
@@ -42,22 +42,33 @@ const Timetable = ({ timeblocks, tas, assignments, onAssign }) => {
                                             <p>{block.startTime} - {block.endTime} </p>
 
                                             <div className="ta-slot">
-                                                <select
-                                                    value={assignedTaId || ""}
-                                                    onChange={(e) => onAssign(block.id, e.target.value)}
-                                                >
-                                                    <option value="">조교 선택</option>
-                                                    {availablTAs.map(ta => (
-                                                        <option key={ta.id} value={ta.id}>
-                                                            {ta.name}
-                                                        </option>
-                                                    ))}   
+                                                {availableTAs.map(ta=>{
+                                                    const currentTAs = assignments[block.id] || [];
+                                                    const isChecked = currentTAs.includes(ta.id);
+                                                    
 
-                                                </select>
+                                                    return (
+                                                        <div key={ta.id} className="ta-checkbox-wrapper">
+                                                            <input
+                                                                type="checkbox"
+                                                                id={`cb-${block.id}-${ta.id}`}
+                                                                checked={isChecked}
 
-                                                {assignedTaId && (
+                                                                onChange={(e) => onAssign(block.id, ta.id, e.target.checked)}
+                                                            />
+                                                            <label htmlFor={`cb-${block.id}-${ta.id}`}>
+                                                                {ta.name}
+                                                            </label>
+                                                        </div>
+                                                    );
+                                                })}
+
+
+                                                {(assignments[block.id] || []).length > 0 && (
                                                     <p className="assgined-ta">
-                                                        배정됨: {tas.find(ta => ta.id === assignedTaId)?.name}
+                                                        배정됨: {assignments[block.id]
+                                                                    .map(taId => tas.find(t => t.id === taId)?.name)
+                                                                    .join(', ')}
                                                     </p>
                                                 )}
                                             </div>
