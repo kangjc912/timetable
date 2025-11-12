@@ -3,6 +3,7 @@ import cors from 'cors';
 import scheduleRoutes from './api/routes/schedule.routes.js'; // 3단계에서 만든 라우트
 
 import taRoutes from './api/routes/ta.routes.js';
+
 const app = express();
 const PORT = process.env.PORT || 5000; // 5000번 포트 사용
 
@@ -12,7 +13,6 @@ app.use(express.json()); // JSON 요청을 파싱
 
 // --- API 라우트 연결 ---
 app.use('/api/schedule', scheduleRoutes); // '/api/schedule'로 시작하는 요청은 scheduleRoutes가 처리
-
 
 app.use('/api/tas', taRoutes); // '/api/tas'로 시작하는 요청은 taRoutes가 처리
 // --- 서버 실행 ---

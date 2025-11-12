@@ -32,7 +32,9 @@ const Timetable = ({ timeblocks, tas, assignments, onAssign }) => {
                                 {blocksByday[day].map(block => {
 
                                     const assignedTaId = assignments[block.id];
-                                    const availablTAs = tas;
+                                    const availablTAs = tas.filter(ta => 
+                                        ta.availableBlockIds.includes(block.id)
+                                    );
 
                                     return (
                                         <div key={block.id} className="timeblock">
