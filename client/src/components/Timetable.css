@@ -48,3 +48,35 @@
     color: #00796b;
 
 }
+
+/* 시간대 그룹 (예: "17:00-19:00") */
+.time-group {
+    border: 1px solid #eee;
+    background: #f9f9f9;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    padding: 10px;
+}
+
+.time-group-header {
+    margin: 0 0 10px 0;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #007bff;
+    font-size: 1.1em;
+    color: #007bff;
+}
+
+/* (가장 중요!) A, B, C반을 가로로 정렬 */
+.time-blocks-wrapper {
+    display: flex;
+    flex-wrap: wrap; /* 공간 없으면 줄바꿈 */
+    gap: 10px; /* 블럭 사이 간격 */
+}
+
+/* 개별 시간표 블럭 (가로 정렬을 위해 너비 조정) */
+.time-blocks {
+    /* (기존 .time-block 스타일은 그대로 두고, 이 아래 3줄만 추가) */
+    flex-grow: 1; /* 남는 공간 차지 */
+    flex-basis: 200px; /* 최소 너비 */
+    min-width: 180px; /* 최소 너비 */
+}
