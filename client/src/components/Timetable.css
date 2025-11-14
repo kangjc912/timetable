@@ -33,9 +33,23 @@
     margin-bottom: 2px;
 }
 
-.time-block p {
-    margin: 0;
-    font-size: 12px;
+
+.time-block {
+    border: 1px solid #007bff;
+    background-color: #f0f8ff;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 10px; 
+
+
+    
+
+    flex-grow: 1;       /* 남는 공간 차지 */
+    flex-basis: 190px;  /* 최소 너비 */
+    min-width: 150px;   /* 최소 너비 */
+
+
+    min-height: 150px;  /* 최소 높이를 150px로 강제 (숫자 조절 가능) */
 }
 
 .ta-slot {

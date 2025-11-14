@@ -39,7 +39,13 @@ const Timetable = ({ timeblocks, tas, assignments, onAssign }) => {
         <div className="timetable-container">
             <h2>시간표</h2>
             <table className="timetable">
-                {/* ... (thead는 동일) ... */}
+                <thead>
+                    <tr>
+                        {days.map(day => (
+                            <th key={day} className="day-header">{day}요일</th>
+                        ))}
+                    </tr>
+                </thead>
                 <tbody>
                     <tr>
                         {days.map(day => (
