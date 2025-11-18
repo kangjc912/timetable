@@ -16,12 +16,14 @@ function App() {
         const fetchData = async () => {
           setLoading(true);
           try {
-              const [timeblocksRes, tasRes] = await Promise.all([
+              const [timeblocksRes, tasRes,assignmentsRes] = await Promise.all([
                   axios.get('http://localhost:5000/api/schedule/timeblocks'),
-                  axios.get('http://localhost:5000/api/tas')
+                  axios.get('http://localhost:5000/api/tas'),
+                  axios.get('http://localhost:5000/api/assignments')
               ]);
               setTimeblocks(timeblocksRes.data);
               setTas(tasRes.data);
+              setAssignments(assignmentsRes.data);
           } catch (error) {
               console.error('Error fetching data:', error);
           } finally {
