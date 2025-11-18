@@ -65,7 +65,21 @@ function App() {
         };
         setAssignments(newAssignments);
         console.log('New Assignments:', newAssignments);
-      }
+    }
+
+    const handleSave = async () => {
+        try {
+            // 1. 현재 React의 assignments state를
+            // 2. '/api/assignments' (POST)로 전송합니다.
+            const response = await axios.post('http://localhost:5000/api/assignments', assignments);
+            
+            // 3. 서버의 응답(message)을 alert으로 띄웁니다.
+            alert(response.data.message);
+        } catch (error) {
+            console.error('저장 실패:', error);
+            alert('저장에 실패했습니다.');
+        }
+    };
   
 
 
@@ -73,6 +87,8 @@ function App() {
         <div className='App'>
             <header className='App-header'>
               <h1>Timeblocks</h1>
+
+              <button onClick={handleSave} className="save-button">배정표 저장하기</button>
             </header>
             <main>
                 <Timetable 
