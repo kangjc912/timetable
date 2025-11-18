@@ -44,30 +44,27 @@ function App() {
       let newTAs = [];
       
       if(isChecked) {
-        if(currentTAs.length>=2) {
-          alert("최대 2명까지만 가능");
-          return;
+        const currentBlock = timeblocks.find(b => b.id === timeblockId);
+            
+            if (currentTAs.length >= 2) {
+                alert("이 시간표에는 최대 2명까지만 배정할 수 있습니다.");
+                return; 
+            }
+            
+            newTAs = [...currentTAs, taId];
+
+        } else {
+            newTAs = currentTAs.filter(id => id !== taId);
         }
 
-        newTAs = [...currentTAs,taId];
-      }else {
-        if(currentTAs.length<=1) {
-          alert("최소 1명 필요");
-          return;
-        }
-        newTAs = currentTAs.filter(id => id !== taId);
+        const newAssignments = {
+            ...assignments,
+            [timeblockId]: newTAs
+        };
+        setAssignments(newAssignments);
+        console.log('New Assignments:', newAssignments);
       }
-
-
-      
-
-      const newAssignments = { 
-        ...assignments,
-        [timeblockId]: newTAs
-      };
-      setAssignments(newAssignments);
-      console.log('New Assignments:', newAssignments);
-    };
+  
 
 
     return (
@@ -96,6 +93,6 @@ function App() {
             </ul>
         </div>
     );
-}
+  } 
 
 export default App;

@@ -45,7 +45,7 @@ export const timeblocks = [
     { id: 'FRI6', day: '금', startTime: '19:00', endTime: '22:00', teacher: 'A', requiredTAs: 1 },
     { id: 'FRI7', day: '금', startTime: '19:00', endTime: '22:00', teacher: 'B', requiredTAs: 1 },
 
-    // --- 님이 작성하신 토요일 ---
+    //토
     { id: 'SAT1', day: '토', startTime: '10:00', endTime: '12:00', teacher: 'B', requiredTAs: 1 },
     { id: 'SAT2', day: '토', startTime: '10:00', endTime: '13:00', teacher: 'A', requiredTAs: 1 },
     { id: 'SAT3', day: '토', startTime: '10:00', endTime: '13:00', teacher: 'A', requiredTAs: 1 },
@@ -54,7 +54,7 @@ export const timeblocks = [
     { id: 'SAT6', day: '토', startTime: '16:00', endTime: '19:00', teacher: 'A', requiredTAs: 1 },
     { id: 'SAT7', day: '토', startTime: '19:00', endTime: '22:00', teacher: 'A', requiredTAs: 1 },
     
-    // --- 님이 작성하신 일요일 ---
+    //일
     { id: 'SUN1', day: '일', startTime: '10:00', endTime: '13:00', teacher: 'A', requiredTAs: 1 },
     { id: 'SUN2', day: '일', startTime: '10:00', endTime: '13:00', teacher: 'A', requiredTAs: 1 },
     { id: 'SUN3', day: '일', startTime: '10:00', endTime: '13:00', teacher: 'A', requiredTAs: 1 },

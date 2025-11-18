@@ -4,19 +4,19 @@ import './Timetable.css';
 
 const Timetable = ({ timeblocks, tas, assignments, onAssign }) => {
     
-    // 1. (변경) 요일별로 묶고 -> 그 안에서 '시간대'별로 또 묶습니다.
+
     const groupBlocksByTime = (blocks) => {
-        const groups = {}; // { "17:00-19:00": [blockA, blockB], ... }
+        const groups = {}; 
         
         blocks.forEach(block => {
-            // "17:00" -> "19:00" = "17:00-19:00"
+
             const timeKey = `${block.startTime}-${block.endTime}`;
             if (!groups[timeKey]) {
                 groups[timeKey] = [];
             }
             groups[timeKey].push(block);
         });
-        // 2. 시간순으로 정렬
+
         return Object.entries(groups).sort(([timeA], [timeB]) =>
             timeA.localeCompare(timeB)
         );
@@ -25,7 +25,6 @@ const Timetable = ({ timeblocks, tas, assignments, onAssign }) => {
     const blocksByDay = {
         '월': groupBlocksByTime(timeblocks.filter(b => b.day === '월')),
         '화': groupBlocksByTime(timeblocks.filter(b => b.day === '화')),
-        // ... (수, 목, 금, 토, 일) ...
         '수': groupBlocksByTime(timeblocks.filter(b => b.day === '수')),
         '목': groupBlocksByTime(timeblocks.filter(b => b.day === '목')),
         '금': groupBlocksByTime(timeblocks.filter(b => b.day === '금')),
@@ -51,18 +50,17 @@ const Timetable = ({ timeblocks, tas, assignments, onAssign }) => {
                         {days.map(day => (
                             <td key={day} className="day-column">
                                 
-                                {/* --- 3. (변경) 시간대별로 그룹을 렌더링 --- */}
+                                
                                 {blocksByDay[day].map(([timeKey, blocksInGroup]) => (
                                     <div key={timeKey} className="time-group">
                                         
-                                        {/* (A) 시간대 헤더 */}
+                                        
                                         <h4 className="time-group-header">{timeKey}</h4>
                                         
-                                        {/* (B) 해당 시간대의 블럭들 (A, B, C반) */}
+                                        
                                         <div className="time-blocks-wrapper">
                                             {blocksInGroup.map(block => {
-                                                // (이 안의 로직은 이전과 동일합니다)
-                                                // ... (availableTAs, isChecked, <input type="checkbox"> 등) ...
+                                                
                                                 
                                                 const availableTAs = tas.filter(ta => 
                                                     ta.availableBlockIds.includes(block.id)
