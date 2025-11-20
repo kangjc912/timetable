@@ -29,11 +29,12 @@ export const tas = [
         contact: '010-5555-5555', 
         availableBlockIds: ['FRI1', 'FRI2', 'FRI3', 'FRI4', 'FRI5', 'FRI6', 'FRI7', 'FRI_SELF1'] 
     },
+
     { 
         id: 'ta06', 
         name: '강조교 (토)', 
         contact: '010-6666-6666', 
-        availableBlockIds: ['SAT1', 'SAT2', 'SAT3', 'SAT4', 'SAT5', 'SAT6', 'SAT7'] 
+        availableBlockIds: ['SAT1', 'SAT2', 'SAT3', 'SAT8', 'SAT9', 'SAT4', 'SAT5', 'SAT6', 'SAT7'] 
     },
     { 
         id: 'ta07', 
@@ -57,13 +58,13 @@ export const tas = [
         id: 'ta10', 
         name: '임조교 (금토)', 
         contact: '010-1010-1010', 
-        availableBlockIds: ['FRI1', 'FRI_SELF1', 'FRI4', 'SAT1', 'SAT4', 'SAT6'] 
+        availableBlockIds: ['FRI1', 'FRI_SELF1', 'FRI4', 'SAT1', 'SAT8', 'SAT9', 'SAT4', 'SAT6'] 
     },
     { 
         id: 'ta11', 
         name: '한조교 (토일)', 
         contact: '010-1212-1212', 
-        availableBlockIds: ['SAT2', 'SAT3', 'SAT5', 'SAT7', 'SUN1', 'SUN3', 'SUN5'] 
+        availableBlockIds: ['SAT2', 'SAT3', 'SAT8', 'SAT9', 'SAT5', 'SAT7', 'SUN1', 'SUN3', 'SUN5'] 
     },
     { 
         id: 'ta12', 
@@ -75,7 +76,7 @@ export const tas = [
         id: 'ta13', 
         name: '서조교 (화목토)', 
         contact: '010-1414-1414', 
-        availableBlockIds: ['TUE2', 'TUE5', 'TUE7', 'THU2', 'THU5', 'THU7', 'SAT1', 'SAT3', 'SAT5'] 
+        availableBlockIds: ['TUE2', 'TUE5', 'TUE7', 'THU2', 'THU5', 'THU7', 'SAT1', 'SAT3', 'SAT8', 'SAT9', 'SAT5'] 
     },
     { 
         id: 'ta14', 
@@ -87,6 +88,6 @@ export const tas = [
         id: 'ta15', 
         name: '권조교 (자기화 All)', 
         contact: '010-1616-1616', 
-        availableBlockIds: ['MON4', 'TUE4', 'WED4', 'THU4', 'FRI4', 'SAT4', 'MON_SELF1', 'TUE_SELF1', 'WED_SELF1', 'THU_SELF1', 'FRI_SELF1'] 
+        availableBlockIds: ['MON4', 'TUE4', 'WED4', 'THU4', 'FRI4', 'SAT4', 'SAT8', 'SAT9', 'MON_SELF1', 'TUE_SELF1', 'WED_SELF1', 'THU_SELF1', 'FRI_SELF1'] 
     }
 ];

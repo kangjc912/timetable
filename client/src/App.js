@@ -38,24 +38,32 @@ function App() {
         return <div>Loading...</div>;
     }
 
-    const handleAssign = (timeblockId, taId,isChecked) => {
+    // --- (App 컴포넌트 내부) ---
 
-      const currentTAs = assignments[timeblockId] || [];
+    const handleAssign = (timeblockId, taId, isChecked) => {
+        const currentTAs = assignments[timeblockId] || [];
+        let newTAs = [];
 
-
-      let newTAs = [];
-      
-      if(isChecked) {
-        const currentBlock = timeblocks.find(b => b.id === timeblockId);
+        if (isChecked) {
+            // [추가 시 검사 로직]
             
+            // 1. 최대 2명 검사
             if (currentTAs.length >= 2) {
                 alert("이 시간표에는 최대 2명까지만 배정할 수 있습니다.");
-                return; 
+                return;
             }
-            
-            newTAs = [...currentTAs, taId];
 
+            // 2. 3연강(최대 2연강) 검사
+            const currentBlock = timeblocks.find(b => b.id === timeblockId);
+            // (위에서 만든 헬퍼 함수 사용)
+            if (!checkConsecutive(taId, currentBlock, assignments, timeblocks)) {
+                alert("해당 조교는 3타임 연속(3연강)으로 배정할 수 없습니다.");
+                return;
+            }
+
+            newTAs = [...currentTAs, taId];
         } else {
+            // [제거 시 로직] - 그냥 제거
             newTAs = currentTAs.filter(id => id !== taId);
         }
 
@@ -64,8 +72,7 @@ function App() {
             [timeblockId]: newTAs
         };
         setAssignments(newAssignments);
-        console.log('New Assignments:', newAssignments);
-    }
+    };
 
     const handleSave = async () => {
         try {
@@ -114,3 +121,42 @@ function App() {
   } 
 
 export default App;
+
+const checkConsecutive = (taId, newBlock, currentAssignments, allTimeblocks) => {
+    // 1. 시간 문자열("17:00")을 숫자(1700)로 바꾸는 함수
+    const parseTime = (t) => parseInt(t.replace(':', ''), 10);
+
+    // 2. 이 조교가 배정된 '모든' 시간표 ID를 가져옴
+    const assignedBlockIds = Object.keys(currentAssignments).filter(blockId => 
+        currentAssignments[blockId].includes(taId)
+    );
+
+    // 3. 그 ID들을 '실제 시간표 객체'로 바꿈 + '같은 요일'만 필터링
+    const dayBlocks = [...assignedBlockIds, newBlock.id] // (새로 추가할 블럭 포함)
+        .map(id => allTimeblocks.find(b => b.id === id))
+        .filter(b => b && b.day === newBlock.day); // (같은 요일만)
+
+    // 4. 중복 제거 (혹시 모를 오류 방지)
+    const uniqueBlocks = [...new Set(dayBlocks)];
+
+    // 5. 시작 시간 순서대로 정렬 (오전 10시 -> 오후 1시 ...)
+    uniqueBlocks.sort((a, b) => parseTime(a.startTime) - parseTime(b.startTime));
+
+    // 6. 연속된 횟수 세기
+    let streak = 1;
+    for (let i = 0; i < uniqueBlocks.length - 1; i++) {
+        const current = uniqueBlocks[i];
+        const next = uniqueBlocks[i+1];
+
+        // 앞 교시 끝나는 시간 == 뒷 교시 시작 시간 (연강)
+        if (parseTime(current.endTime) === parseTime(next.startTime)) {
+            streak++;
+        } else {
+            streak = 1; // 끊기면 리셋
+        }
+
+        if (streak >= 3) return false; // 3연강 발견! (실패)
+    }
+
+    return true; // 통과
+};
