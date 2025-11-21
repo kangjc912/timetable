@@ -77,3 +77,19 @@
 .reset-button:hover {
   background-color: #c82333;
 }
+
+
+.auto-button {
+  font-size: 1.2em;
+  font-weight: bold;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.auto-button:hover {
+  background-color: #0056b3;
+}

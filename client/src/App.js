@@ -128,6 +128,112 @@ function App() {
 
 
 
+    const handleAutoAssign = () => {
+        let nextAssignments = { ...assignments };
+
+
+        const MAX_WORKLOAD = 4;
+
+
+        const getWorkload = (taId) => {
+            return Object.values(nextAssignments).flat().filter(id => id === taId).length;
+        };
+
+
+        const isCandidateValid = (ta, block, currentAssigned) => {
+            // 1. 시간 안 되면 탈락
+            if (!ta.availableBlockIds.includes(block.id)) return false;
+            // 2. 이미 들어와 있으면 탈락
+            if (currentAssigned.includes(ta.id)) return false;
+
+            for (const [assignedBlockId, assignedTaIds] of Object.entries(nextAssignments)) {
+                if (assignedTaIds.includes(ta.id)) {
+                    const otherBlock = timeblocks.find(b => b.id === assignedBlockId);
+                    if (otherBlock && checkOverlap(block, otherBlock)) return false;
+                }
+            }
+
+            if (!checkConsecutive(ta.id, block, nextAssignments, timeblocks)) return false;
+
+            return true;
+        };
+
+        timeblocks.forEach(block => {
+            const requiredCount = block.requiredTAs || 1;
+
+
+            const validCandidates = tas.filter(ta => {
+                // 아직 배정되지 않은 상태 기준으로 체크
+                const current = nextAssignments[block.id] || [];
+                return isCandidateValid(ta, block, current);
+            });
+
+
+            if (validCandidates.length <= requiredCount) {
+
+                if (!nextAssignments[block.id]) nextAssignments[block.id] = [];
+
+                validCandidates.forEach(ta => {
+                    if (!nextAssignments[block.id].includes(ta.id)) {
+                        nextAssignments[block.id].push(ta.id);
+                    }
+                });
+            }
+        });
+
+
+
+
+        const remainingBlocks = timeblocks.filter(block => {
+            const current = nextAssignments[block.id] || [];
+            return current.length < (block.requiredTAs || 1);
+        });
+
+        remainingBlocks.forEach(block => {
+            const currentAssigned = nextAssignments[block.id] || [];
+            const requiredCount = block.requiredTAs || 1;
+            const needed = requiredCount - currentAssigned.length;
+
+            // 1. 후보 찾기
+            let candidates = tas.filter(ta => {
+                // 기본 조건 통과 확인
+                if (!isCandidateValid(ta, block, currentAssigned)) return false;
+
+
+                if (getWorkload(ta.id) >= MAX_WORKLOAD) return false;
+
+                return true;
+            });
+
+            // 2. "일 적게 한 사람" 순서로 정렬 (일감 몰아주기 방지)
+            candidates.sort((a, b) => getWorkload(a.id) - getWorkload(b.id));
+
+            // 3. 필요한 만큼 앞에서부터 채우기
+            for (let i = 0; i < needed; i++) {
+                if (candidates[i]) {
+                    if (!nextAssignments[block.id]) nextAssignments[block.id] = [];
+                    nextAssignments[block.id].push(candidates[i].id);
+                }
+            }
+        });
+
+        // 결과 저장
+        const totalAssigned = Object.values(nextAssignments).flat().length;
+        setAssignments(nextAssignments);
+        alert(`🤖 배정 완료! (총 ${totalAssigned}건)`);
+    };
+
+
+
+
+
+
+
+
+
+
+
+
     return (
         <div className='App'>
             <header className='App-header'>
@@ -137,6 +243,10 @@ function App() {
 
 
                 <button onClick={handleReset} className="reset-button">초기화</button>
+
+
+                <button onClick={handleAutoAssign} className="auto-button">🤖 자동 배정</button>
+
             </header>
             <main>
                 <Timetable
@@ -166,9 +276,9 @@ const checkConsecutive = (taId, newBlock, currentAssignments, allTimeblocks) => 
     );
 
     // 3. 그 ID들을 '실제 시간표 객체'로 바꿈 + '같은 요일'만 필터링
-    const dayBlocks = [...assignedBlockIds, newBlock.id] // (새로 추가할 블럭 포함)
+    const dayBlocks = [...assignedBlockIds, newBlock.id]
         .map(id => allTimeblocks.find(b => b.id === id))
-        .filter(b => b && b.day === newBlock.day); // (같은 요일만)
+        .filter(b => b && b.day === newBlock.day);
 
     // 4. 중복 제거 (혹시 모를 오류 방지)
     const uniqueBlocks = [...new Set(dayBlocks)];
@@ -193,4 +303,24 @@ const checkConsecutive = (taId, newBlock, currentAssignments, allTimeblocks) => 
     }
 
     return true; // 통과
+};
+
+
+
+
+
+
+// 두 시간표가 겹치는지 확인하는 헬퍼 함수
+
+const checkOverlap = (blockA, blockB) => {
+    if (blockA.day !== blockB.day) return false;
+    if (blockA.id === blockB.id) return false; // 자기 자신 제외
+
+    const parseTime = (t) => parseInt(t.replace(':', ''), 10);
+    const startA = parseTime(blockA.startTime);
+    const endA = parseTime(blockA.endTime);
+    const startB = parseTime(blockB.startTime);
+    const endB = parseTime(blockB.endTime);
+
+    return startA < endB && endA > startB;
 };
