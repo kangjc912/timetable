@@ -115,6 +115,15 @@ function App() {
 
 
 
+    const handleReset = () => {
+        if (window.confirm("정말로 모든 배정 내용을 지우시겠습니까?")) {
+            setAssignments({});
+        }
+    };
+
+
+
+
 
 
 
@@ -125,6 +134,9 @@ function App() {
                 <h1>Timeblocks</h1>
 
                 <button onClick={handleSave} className="save-button">배정표 저장하기</button>
+
+
+                <button onClick={handleReset} className="reset-button">초기화</button>
             </header>
             <main>
                 <Timetable
