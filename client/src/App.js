@@ -3,6 +3,8 @@ import axios from 'axios';
 import './App.css';
 
 import Timetable from './components/Timetable';
+import Dashboard from './components/Dashboard';
+
 
 function App() {
     const [timeblocks, setTimeblocks] = useState([]);
@@ -14,21 +16,21 @@ function App() {
 
     useEffect(() => {
         const fetchData = async () => {
-          setLoading(true);
-          try {
-              const [timeblocksRes, tasRes,assignmentsRes] = await Promise.all([
-                  axios.get('http://localhost:5000/api/schedule/timeblocks'),
-                  axios.get('http://localhost:5000/api/tas'),
-                  axios.get('http://localhost:5000/api/assignments')
-              ]);
-              setTimeblocks(timeblocksRes.data);
-              setTas(tasRes.data);
-              setAssignments(assignmentsRes.data);
-          } catch (error) {
-              console.error('Error fetching data:', error);
-          } finally {
-              setLoading(false);
-          }
+            setLoading(true);
+            try {
+                const [timeblocksRes, tasRes, assignmentsRes] = await Promise.all([
+                    axios.get('http://localhost:5000/api/schedule/timeblocks'),
+                    axios.get('http://localhost:5000/api/tas'),
+                    axios.get('http://localhost:5000/api/assignments')
+                ]);
+                setTimeblocks(timeblocksRes.data);
+                setTas(tasRes.data);
+                setAssignments(assignmentsRes.data);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            } finally {
+                setLoading(false);
+            }
         };
 
         fetchData();
@@ -38,6 +40,16 @@ function App() {
         return <div>Loading...</div>;
     }
 
+
+
+
+
+
+
+
+
+
+
     // --- (App 컴포넌트 내부) ---
 
     const handleAssign = (timeblockId, taId, isChecked) => {
@@ -46,7 +58,7 @@ function App() {
 
         if (isChecked) {
             // [추가 시 검사 로직]
-            
+
             // 1. 최대 2명 검사
             if (currentTAs.length >= 2) {
                 alert("이 시간표에는 최대 2명까지만 배정할 수 있습니다.");
@@ -63,7 +75,7 @@ function App() {
 
             newTAs = [...currentTAs, taId];
         } else {
-            // [제거 시 로직] - 그냥 제거
+
             newTAs = currentTAs.filter(id => id !== taId);
         }
 
@@ -74,12 +86,22 @@ function App() {
         setAssignments(newAssignments);
     };
 
+
+
+
+
+
+
+
+
+
+
     const handleSave = async () => {
         try {
             // 1. 현재 React의 assignments state를
             // 2. '/api/assignments' (POST)로 전송합니다.
             const response = await axios.post('http://localhost:5000/api/assignments', assignments);
-            
+
             // 3. 서버의 응답(message)을 alert으로 띄웁니다.
             alert(response.data.message);
         } catch (error) {
@@ -87,38 +109,38 @@ function App() {
             alert('저장에 실패했습니다.');
         }
     };
-  
+
+
+
+
+
+
+
+
 
 
     return (
         <div className='App'>
             <header className='App-header'>
-              <h1>Timeblocks</h1>
+                <h1>Timeblocks</h1>
 
-              <button onClick={handleSave} className="save-button">배정표 저장하기</button>
+                <button onClick={handleSave} className="save-button">배정표 저장하기</button>
             </header>
             <main>
-                <Timetable 
-                  timeblocks={timeblocks} 
-                  tas={tas}
-                  assignments={assignments}
-                  onAssign={handleAssign}
+                <Timetable
+                    timeblocks={timeblocks}
+                    tas={tas}
+                    assignments={assignments}
+                    onAssign={handleAssign}
                 />
-            </main>
-            
-            <hr />
 
-            <h1>Teaching Assistants</h1>
-            <ul>
-                {tas.map(ta => (
-                    <li key={ta.id}>
-                      {ta.name} ({ta.contact})
-                    </li>
-                ))}
-            </ul>
+                <Dashboard tas={tas} assignments={assignments} />
+            </main>
+
+            <hr />
         </div>
     );
-  } 
+}
 
 export default App;
 
@@ -127,7 +149,7 @@ const checkConsecutive = (taId, newBlock, currentAssignments, allTimeblocks) => 
     const parseTime = (t) => parseInt(t.replace(':', ''), 10);
 
     // 2. 이 조교가 배정된 '모든' 시간표 ID를 가져옴
-    const assignedBlockIds = Object.keys(currentAssignments).filter(blockId => 
+    const assignedBlockIds = Object.keys(currentAssignments).filter(blockId =>
         currentAssignments[blockId].includes(taId)
     );
 
@@ -146,7 +168,7 @@ const checkConsecutive = (taId, newBlock, currentAssignments, allTimeblocks) => 
     let streak = 1;
     for (let i = 0; i < uniqueBlocks.length - 1; i++) {
         const current = uniqueBlocks[i];
-        const next = uniqueBlocks[i+1];
+        const next = uniqueBlocks[i + 1];
 
         // 앞 교시 끝나는 시간 == 뒷 교시 시작 시간 (연강)
         if (parseTime(current.endTime) === parseTime(next.startTime)) {
@@ -155,7 +177,7 @@ const checkConsecutive = (taId, newBlock, currentAssignments, allTimeblocks) => 
             streak = 1; // 끊기면 리셋
         }
 
-        if (streak >= 3) return false; // 3연강 발견! (실패)
+        if (streak >= 3) return false; // 3연강 발견 (실패)
     }
 
     return true; // 통과

@@ -1,6 +1,6 @@
 // 각 시간표(Time Block)에 고유 ID를 부여하고, 필요한 조교 수를 정의
 export const timeblocks = [
-    // --- 님이 작성하신 평일 (월-금) ---
+    //월
     { id: 'MON1', day: '월', startTime: '17:00', endTime: '19:00', teacher: 'A', requiredTAs: 1 },
     { id: 'MON2', day: '월', startTime: '17:00', endTime: '19:00', teacher: 'B', requiredTAs: 1 },
     { id: 'MON3', day: '월', startTime: '17:00', endTime: '19:00', teacher: 'C', requiredTAs: 1 },
@@ -26,7 +26,7 @@ export const timeblocks = [
     { id: 'WED5', day: '수', startTime: '19:00', endTime: '21:00', teacher: 'C', requiredTAs: 1 },
     { id: 'WED6', day: '수', startTime: '19:00', endTime: '22:00', teacher: 'A', requiredTAs: 1 },
     { id: 'WED7', day: '수', startTime: '19:00', endTime: '22:00', teacher: 'B', requiredTAs: 1 },
-    
+
     //목
     { id: 'THU1', day: '목', startTime: '17:00', endTime: '19:00', teacher: 'A', requiredTAs: 1 },
     { id: 'THU2', day: '목', startTime: '17:00', endTime: '19:00', teacher: 'B', requiredTAs: 1 },
@@ -55,7 +55,7 @@ export const timeblocks = [
     { id: 'SAT7', day: '토', startTime: '19:00', endTime: '22:00', teacher: 'A', requiredTAs: 1 },
     { id: 'SAT8', day: '토', startTime: '13:00', endTime: '16:00', teacher: 'A', requiredTAs: 1 },
     { id: 'SAT9', day: '토', startTime: '13:00', endTime: '16:00', teacher: 'A', requiredTAs: 1 },
-    
+
     //일
     { id: 'SUN1', day: '일', startTime: '10:00', endTime: '13:00', teacher: 'A', requiredTAs: 1 },
     { id: 'SUN2', day: '일', startTime: '10:00', endTime: '13:00', teacher: 'A', requiredTAs: 1 },
@@ -70,5 +70,5 @@ export const timeblocks = [
     { id: 'WED_SELF1', day: '수', startTime: '17:00', endTime: '18:00', teacher: '자기화', requiredTAs: 1 },
     { id: 'THU_SELF1', day: '목', startTime: '17:00', endTime: '18:00', teacher: '자기화', requiredTAs: 1 },
     { id: 'FRI_SELF1', day: '금', startTime: '17:00', endTime: '18:00', teacher: '자기화', requiredTAs: 1 },
-   
+
 ];
