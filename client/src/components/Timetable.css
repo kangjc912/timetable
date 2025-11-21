@@ -116,3 +116,32 @@
     flex-basis: 200px;
     min-width: 180px;
 }
+
+
+
+.force-assign-wrapper {
+    margin-top: 8px;
+    margin-bottom: 5px;
+    text-align: right;
+}
+
+
+
+.force-assign-select {
+    padding: 2px 5px;
+    font-size: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #f8f9fa;
+    color: #555;
+    cursor: pointer;
+    width: 100%;
+    max-width: 120px;
+}
+
+
+
+
+.force-assign-select:hover {
+    border-color: #aaa;
+}

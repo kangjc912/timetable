@@ -2,7 +2,7 @@
 import React from 'react';
 import './Timetable.css';
 
-const Timetable = ({ timeblocks, tas, assignments, onAssign, onDeleteBlock }) => {
+const Timetable = ({ timeblocks, tas, assignments, onAssign, onDeleteBlock, onForceAssign }) => {
 
     //시간대별로 묶기
     const groupBlocksByTime = (blocks) => {
@@ -121,6 +121,34 @@ const Timetable = ({ timeblocks, tas, assignments, onAssign, onDeleteBlock }) =>
                                                                     </div>
                                                                 );
                                                             })}
+
+
+
+                                                            <div className="force-assign-wrapper">
+                                                                <select
+                                                                    className="force-assign-select"
+                                                                    onChange={(e) => {
+                                                                        if (e.target.value) {
+                                                                            onForceAssign(block.id, e.target.value);
+                                                                            e.target.value = ""; // 선택 후 다시 초기화
+                                                                        }
+                                                                    }}
+                                                                >
+                                                                    <option value="">➕ 직접 추가...</option>
+                                                                    {/* 모든 조교 리스트를 보여줌 (이미 배정된 사람 제외) */}
+                                                                    {tas
+                                                                        .filter(t => !(assignments[block.id] || []).includes(t.id))
+                                                                        .map(t => (
+                                                                            <option key={t.id} value={t.id}>
+                                                                                {t.name}
+                                                                            </option>
+                                                                        ))
+                                                                    }
+                                                                </select>
+                                                            </div>
+
+
+
 
                                                             {(assignments[block.id] || []).length > 0 && (
                                                                 <p className="assigned-ta">

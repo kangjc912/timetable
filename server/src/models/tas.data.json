@@ -227,30 +227,5 @@
             "THU_SELF1",
             "FRI_SELF1"
         ]
-    },
-    {
-        "name": "아아아",
-        "contact": "01097543451",
-        "availableDays": [
-            "수",
-            "목"
-        ],
-        "minTime": "17:00",
-        "maxTime": "21:00",
-        "id": "TA_1763758417111",
-        "availableBlockIds": [
-            "WED1",
-            "WED2",
-            "WED3",
-            "WED4",
-            "WED5",
-            "THU1",
-            "THU2",
-            "THU3",
-            "THU4",
-            "THU5",
-            "WED_SELF1",
-            "THU_SELF1"
-        ]
     }
 ]

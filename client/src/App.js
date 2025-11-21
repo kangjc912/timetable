@@ -89,6 +89,34 @@ function App() {
 
 
 
+    const handleForceAssign = (timeblockId, taId) => {
+        const currentTAs = assignments[timeblockId] || [];
+
+        // 1. 이미 들어와 있는지 체크
+        if (currentTAs.includes(taId)) {
+            alert("이미 배정된 조교입니다.");
+            return;
+        }
+
+        // 2. 최대 인원(2명) 체크 -> 경고 후 진행
+        if (currentTAs.length >= 2) {
+            if (!window.confirm("⚠️ 정원(2명)이 꽉 찼습니다. 그래도 추가하시겠습니까?")) return;
+        }
+
+        // 3. 3연강 체크 -> 경고 후 진행
+        const currentBlock = timeblocks.find(b => b.id === timeblockId);
+        if (!checkConsecutive(taId, currentBlock, assignments, timeblocks)) {
+            if (!window.confirm("⚠️ 3연강(연속 근무) 경고! 조교가 힘들어할 수 있습니다. 그래도 배정하시겠습니까?")) return;
+        }
+
+        // 4. 배정 강행!
+        const newAssignments = { ...assignments, [timeblockId]: [...currentTAs, taId] };
+        setAssignments(newAssignments);
+    };
+
+
+
+
 
 
     const handleSave = async () => {
@@ -324,7 +352,16 @@ function App() {
         } catch (err) { alert("삭제 실패"); }
     };
 
+
+
+
+
+
+
     if (loading) return <div>Loading...</div>;
+
+
+
 
     return (
         <div className='App'>
@@ -437,6 +474,7 @@ function App() {
                     assignments={assignments}
                     onAssign={handleAssign}
                     onDeleteBlock={handleDeleteBlock}
+                    onForceAssign={handleForceAssign}
                 />
                 <Dashboard tas={tas} assignments={assignments} />
 
