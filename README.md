@@ -62,24 +62,29 @@ Node.js 환경이 설치되어 있어야 합니다.
 
 프로젝트 클론
 
+```bash
 git clone https://github.com/kangjc912/timetable.git
 cd timetable
+```
 
 
 백엔드(Server) 실행
-
+```bash
 cd server
 npm install
 npm start
 # ✅ Server running at http://localhost:5000
-
+```
 
 프론트엔드(Client) 실행 (새 터미널)
 
+```bash
 cd client
 npm install
 npm start
 # ✅ Client running at http://localhost:3000
+```
+
 
 
 🛠 기술 스택
