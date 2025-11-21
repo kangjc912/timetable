@@ -4,7 +4,8 @@
     table-layout: fixed;
 }
 
-.timetable th, .timetable td {
+.timetable th,
+.timetable td {
     border: 1px solid #ccc;
     padding: 8px;
     text-align: center;
@@ -26,6 +27,23 @@
     padding: 4px;
     border-radius: 4px;
     font-size: 14px;
+    position: relative;
+}
+
+.delete-block-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.8rem;
+    opacity: 0.3;
+    transition: opacity 0.2s;
+}
+
+.delete-block-btn:hover {
+    opacity: 1;
 }
 
 .time-block strong {
@@ -39,17 +57,21 @@
     background-color: #f0f8ff;
     border-radius: 4px;
     padding: 10px;
-    margin-bottom: 10px; 
+    margin-bottom: 10px;
 
 
-    
-
-    flex-grow: 1;       /* 남는 공간 차지 */
-    flex-basis: 190px;  /* 최소 너비 */
-    min-width: 150px;   /* 최소 너비 */
 
 
-    min-height: 150px;  /* 최소 높이를 150px로 강제 (숫자 조절 가능) */
+    flex-grow: 1;
+    /* 남는 공간 차지 */
+    flex-basis: 190px;
+    /* 최소 너비 */
+    min-width: 150px;
+    /* 최소 너비 */
+
+
+    min-height: 150px;
+    /* 최소 높이를 150px로 강제 (숫자 조절 가능) */
 }
 
 .ta-slot {
@@ -83,14 +105,14 @@
 
 .time-blocks-wrapper {
     display: flex;
-    flex-wrap: wrap; 
-    gap: 10px; 
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 
 .time-blocks {
-   
-    flex-grow: 1; 
-    flex-basis: 200px; 
-    min-width: 180px; 
+
+    flex-grow: 1;
+    flex-basis: 200px;
+    min-width: 180px;
 }

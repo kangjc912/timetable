@@ -224,6 +224,31 @@ function App() {
     };
 
 
+    const handleDeleteBlock = async (blockId) => {
+        if (!window.confirm("정말로 이 시간표를 삭제하시겠습니까? (배정된 내용도 같이 사라집니다)")) {
+            return;
+        }
+
+        try {
+            // 1. 서버에 삭제 요청
+            await axios.delete(`http://localhost:5000/api/schedule/timeblocks/${blockId}`);
+
+            // 2. 화면 목록에서 지움 
+            setTimeblocks(prev => prev.filter(b => b.id !== blockId));
+
+            // 3. 배정된 조교 데이터 정리
+            const newAssignments = { ...assignments };
+            delete newAssignments[blockId];
+            setAssignments(newAssignments);
+
+            alert("삭제되었습니다.");
+        } catch (error) {
+            console.error(error);
+            alert("삭제 실패!");
+        }
+    };
+
+
 
 
 
@@ -254,6 +279,7 @@ function App() {
                     tas={tas}
                     assignments={assignments}
                     onAssign={handleAssign}
+                    onDeleteBlock={handleDeleteBlock}
                 />
 
                 <Dashboard tas={tas} assignments={assignments} />

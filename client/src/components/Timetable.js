@@ -2,12 +2,12 @@
 import React from 'react';
 import './Timetable.css';
 
-const Timetable = ({ timeblocks, tas, assignments, onAssign }) => {
-    
+const Timetable = ({ timeblocks, tas, assignments, onAssign, onDeleteBlock }) => {
+
     //시간대별로 묶기
     const groupBlocksByTime = (blocks) => {
-        const groups = {}; 
-        
+        const groups = {};
+
         blocks.forEach(block => {
 
             const timeKey = `${block.startTime}-${block.endTime}`;
@@ -46,7 +46,7 @@ const Timetable = ({ timeblocks, tas, assignments, onAssign }) => {
         '토': groupBlocksByTime(timeblocks.filter(b => b.day === '토')),
         '일': groupBlocksByTime(timeblocks.filter(b => b.day === '일')),
     };
-    
+
     const days = ['월', '화', '수', '목', '금', '토', '일'];
 
     return (
@@ -69,22 +69,31 @@ const Timetable = ({ timeblocks, tas, assignments, onAssign }) => {
                                         <h4 className="time-group-header">{timeKey}</h4>
                                         <div className="time-blocks-wrapper">
                                             {blocksInGroup.map(block => {
-                                                const availableTAs = tas.filter(ta => 
+                                                const availableTAs = tas.filter(ta =>
                                                     ta.availableBlockIds.includes(block.id)
                                                 );
-                                                
+
                                                 return (
                                                     <div key={block.id} className="time-block">
+
+                                                        <button
+                                                            onClick={() => onDeleteBlock(block.id)}
+                                                            className="delete-block-btn"
+                                                            title="이 시간표 삭제"
+                                                        >
+                                                            ❌
+                                                        </button>
+
                                                         <strong>{block.teacher} 선생님</strong>
                                                         <p>{block.startTime} - {block.endTime}</p>
-                                                        
+
                                                         <div className="ta-slot">
                                                             {availableTAs.map(ta => {
                                                                 const currentTAs = assignments[block.id] || [];
                                                                 const isChecked = currentTAs.includes(ta.id);
 
                                                                 let isDisabled = false;
-                                                                
+
                                                                 // 이 조교가 배정된 모든 다른 블럭
                                                                 for (const [assignedBlockId, assignedTaIds] of Object.entries(assignments)) {
                                                                     if (assignedTaIds.includes(ta.id)) {
@@ -92,14 +101,14 @@ const Timetable = ({ timeblocks, tas, assignments, onAssign }) => {
                                                                         const otherBlock = timeblocks.find(b => b.id === assignedBlockId);
                                                                         // 현재 블럭과 시간이 겹치는지 확인
                                                                         if (otherBlock && checkOverlap(block, otherBlock)) {
-                                                                            isDisabled = true; 
+                                                                            isDisabled = true;
                                                                             break; // 하나라도 겹치면 즉시 중단
                                                                         }
                                                                     }
                                                                 }
                                                                 return (
                                                                     <div key={ta.id} className="ta-checkbox-wrapper">
-                                                                        <input 
+                                                                        <input
                                                                             type="checkbox"
                                                                             id={`cb-${block.id}-${ta.id}`}
                                                                             checked={isChecked}
@@ -112,12 +121,12 @@ const Timetable = ({ timeblocks, tas, assignments, onAssign }) => {
                                                                     </div>
                                                                 );
                                                             })}
-                                                            
+
                                                             {(assignments[block.id] || []).length > 0 && (
                                                                 <p className="assigned-ta">
                                                                     배정됨: {assignments[block.id]
-                                                                                .map(taId => tas.find(t => t.id === taId)?.name)
-                                                                                .join(', ')}
+                                                                        .map(taId => tas.find(t => t.id === taId)?.name)
+                                                                        .join(', ')}
                                                                 </p>
                                                             )}
                                                         </div>
