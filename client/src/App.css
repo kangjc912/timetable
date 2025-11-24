@@ -1,4 +1,3 @@
-
 .App {
   text-align: center;
   font-family: 'Noto Sans KR', sans-serif;
@@ -31,9 +30,8 @@
   margin-bottom: 5px;
 }
 
-
 .button-group button {
-  height: 40px; 
+  height: 40px;
   padding: 0 20px;
   font-size: 1rem;
   font-weight: 600;
@@ -43,9 +41,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: all 0.2s;
-  line-height: 1; 
+  line-height: 1;
 }
 
 .button-group button:active {
@@ -53,16 +51,32 @@
   box-shadow: none;
 }
 
+.save-button {
+  background-color: #28a745;
+  color: white;
+}
 
-.save-button { background-color: #28a745; color: white; }
-.save-button:hover { background-color: #218838; }
+.save-button:hover {
+  background-color: #218838;
+}
 
-.auto-button { background-color: #007bff; color: white; }
-.auto-button:hover { background-color: #0056b3; }
+.auto-button {
+  background-color: #007bff;
+  color: white;
+}
 
-.reset-button { background-color: #dc3545; color: white; }
-.reset-button:hover { background-color: #c82333; }
+.auto-button:hover {
+  background-color: #0056b3;
+}
 
+.reset-button {
+  background-color: #dc3545;
+  color: white;
+}
+
+.reset-button:hover {
+  background-color: #c82333;
+}
 
 
 .forms-container {
@@ -80,14 +94,15 @@
   padding: 15px 20px;
   border-radius: 12px;
   border: 1px solid #e9ecef;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
   gap: 10px;
-  flex: 1 1 450px; 
+  flex: 1 1 450px;
   max-width: 600px;
-  min-width: 320px; 
+  min-width: 320px;
 }
+
 
 .add-block-form h3 {
   margin: 0;
@@ -96,7 +111,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 30px; 
+  height: 30px;
 }
 
 
@@ -104,49 +119,48 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  flex-wrap: nowrap; 
+  flex-wrap: nowrap;
 }
 
 
-.form-row input, 
-.form-row select, 
+.form-row input,
+.form-row select,
 .form-row button {
-  height: 40px; 
-  box-sizing: border-box; 
+  height: 40px;
+  box-sizing: border-box;
   font-size: 0.95rem;
   border-radius: 6px;
   vertical-align: middle;
 }
 
-
-.form-row input, 
+.form-row input,
 .form-row select {
   padding: 0 10px;
   border: 1px solid #ced4da;
   background-color: white;
 }
 
-.form-row input:focus, 
+.form-row input:focus,
 .form-row select:focus {
   outline: none;
   border-color: #80bdff;
-  box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
 }
 
-/* 시간 입력창 너비 */
+
 input[type="time"] {
-  width: 115px;
+  width: 130px;
 }
 
-/* 텍스트 입력창 너비 유연하게 */
+
 input[type="text"] {
-  flex-grow: 1; 
+  flex-grow: 1;
   min-width: 80px;
 }
 
-/* 폼 내부 버튼 (등록/추가) */
+
 .form-row button {
-  padding: 0 20px; /* 상단 버튼과 패딩도 맞춤 */
+  padding: 0 20px;
   border: none;
   font-weight: bold;
   color: white;
@@ -156,7 +170,10 @@ input[type="text"] {
   white-space: nowrap;
   line-height: 1;
 }
-.form-row button:hover { opacity: 0.9; }
+
+.form-row button:hover {
+  opacity: 0.9;
+}
 
 
 
@@ -174,16 +191,19 @@ input[type="text"] {
   align-items: center;
   margin-left: auto;
 }
-.danger-btn-small:hover { background-color: #ffe3e3; }
+
+.danger-btn-small:hover {
+  background-color: #ffe3e3;
+}
 
 
-/* --- 요일/시간 선택 체크박스 영역 --- */
+
 .day-checkboxes {
   margin-top: 5px;
   padding-top: 10px;
   border-top: 1px dashed #dee2e6;
   display: flex;
-  flex-wrap: nowrap; 
+  flex-wrap: nowrap;
   gap: 10px;
   overflow-x: auto;
   align-items: center;
@@ -191,7 +211,10 @@ input[type="text"] {
   font-size: 0.9rem;
   color: #495057;
 }
-.day-checkboxes::-webkit-scrollbar { display: none; }
+
+.day-checkboxes::-webkit-scrollbar {
+  display: none;
+}
 
 .day-checkboxes label {
   display: flex;
@@ -201,7 +224,7 @@ input[type="text"] {
   flex-shrink: 0;
 }
 
-/* --- 메인 컨텐츠 영역 --- */
+
 main {
   padding: 30px 20px;
   max-width: 1200px;
@@ -211,20 +234,20 @@ main {
   gap: 40px;
 }
 
-/* --- 조교 관리 리스트 (하단) --- */
+
 .ta-manage-list {
   background: white;
   padding: 25px;
   border-radius: 15px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
 
 .ta-manage-list h3 {
-    margin: 0 0 15px 0;
-    border-bottom: 2px solid #eee;
-    padding-bottom: 10px;
-    color: #333;
-    text-align: left;
+  margin: 0 0 15px 0;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 10px;
+  color: #333;
+  text-align: left;
 }
 
 .ta-manage-list ul {
@@ -256,4 +279,7 @@ main {
   padding: 5px;
   transition: color 0.2s;
 }
-.delete-ta-btn:hover { color: #dc3545; }
+
+.delete-ta-btn:hover {
+  color: #dc3545;
+}

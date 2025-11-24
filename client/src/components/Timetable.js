@@ -1,4 +1,4 @@
-// ... (imports)
+
 import React from 'react';
 import './Timetable.css';
 
@@ -84,7 +84,9 @@ const Timetable = ({ timeblocks, tas, assignments, onAssign, onDeleteBlock, onFo
                                                             ❌
                                                         </button>
 
-                                                        <strong>{block.teacher} 선생님</strong>
+                                                        <strong title={`${block.teacher} 선생님`}>
+                                                            {block.teacher} 선생님
+                                                        </strong>
                                                         <p>{block.startTime} - {block.endTime}</p>
 
                                                         <div className="ta-slot">
@@ -107,7 +109,7 @@ const Timetable = ({ timeblocks, tas, assignments, onAssign, onDeleteBlock, onFo
                                                                     }
                                                                 }
                                                                 return (
-                                                                    <div key={ta.id} className="ta-checkbox-wrapper">
+                                                                    <div key={ta.id} className="ta-checkbox-wrapper" style={isDisabled ? { opacity: 0.5 } : {}}>
                                                                         <input
                                                                             type="checkbox"
                                                                             id={`cb-${block.id}-${ta.id}`}
@@ -115,7 +117,11 @@ const Timetable = ({ timeblocks, tas, assignments, onAssign, onDeleteBlock, onFo
                                                                             disabled={isDisabled}
                                                                             onChange={(e) => onAssign(block.id, ta.id, e.target.checked)}
                                                                         />
-                                                                        <label htmlFor={`cb-${block.id}-${ta.id}`}>
+                                                                        <label
+                                                                            htmlFor={`cb-${block.id}-${ta.id}`}
+                                                                            title={ta.name}
+                                                                            style={isDisabled ? { cursor: 'not-allowed', textDecoration: 'line-through' } : {}}
+                                                                        >
                                                                             {ta.name}
                                                                         </label>
                                                                     </div>
