@@ -1,148 +1,68 @@
+
 .App {
   text-align: center;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #333;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  background-color: #fff;
+  padding: 20px 20px 10px;
+  border-bottom: 1px solid #eee;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  gap: 15px;
 }
 
-.App-link {
-  color: #61dafb;
+.App-header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  color: #2c3e50;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.save-button {
-  font-size: 1.2em;
-  font-weight: bold;
-  padding: 10px 20px;
-  background-color: #28a745;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin: 10px;
-}
-
-.save-button:hover {
-  background-color: #218838;
-}
-
 
 
 .button-group {
   display: flex;
   gap: 10px;
-  margin-bottom: 10px;
-}
-
-
-.reset-button {
-  font-size: 1.2em;
-  font-weight: bold;
-  padding: 10px 20px;
-  background-color: #dc3545;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.reset-button:hover {
-  background-color: #c82333;
-}
-
-
-.auto-button {
-  font-size: 1.2em;
-  font-weight: bold;
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.auto-button:hover {
-  background-color: #0056b3;
-}
-
-
-
-.add-block-form {
-  background-color: #f8f9fa;
-  padding: 15px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  margin: 20px auto;
-  max-width: 800px;
-  /* 너무 넓어지지 않게 */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-}
-
-.add-block-form h3 {
-  margin-top: 0;
-  margin-bottom: 10px;
-  font-size: 1.1rem;
-  color: #333;
-}
-
-.form-row {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  align-items: center;
   flex-wrap: wrap;
-  /* 모바일 대응 */
+  justify-content: center;
+  margin-bottom: 5px;
 }
 
-.form-row input,
-.form-row select {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
 
-.form-row button {
-  background-color: #28a745;
-  color: white;
+.button-group button {
+  height: 40px; 
+  padding: 0 20px;
+  font-size: 1rem;
+  font-weight: 600;
   border: none;
-  padding: 8px 15px;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
-  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: all 0.2s;
+  line-height: 1; 
 }
 
-.form-row button:hover {
-  background-color: #218838;
+.button-group button:active {
+  transform: translateY(1px);
+  box-shadow: none;
 }
+
+
+.save-button { background-color: #28a745; color: white; }
+.save-button:hover { background-color: #218838; }
+
+.auto-button { background-color: #007bff; color: white; }
+.auto-button:hover { background-color: #0056b3; }
+
+.reset-button { background-color: #dc3545; color: white; }
+.reset-button:hover { background-color: #c82333; }
+
 
 
 .forms-container {
@@ -151,16 +71,160 @@
   justify-content: center;
   gap: 20px;
   width: 100%;
-  max-width: 1000px;
+  max-width: 1200px;
+  margin-top: 10px;
 }
 
-/* 조교 관리 리스트 스타일 */
-.ta-manage-list {
-  margin: 30px 20px;
-  padding: 20px;
+.add-block-form {
+  background-color: #f8f9fa;
+  padding: 15px 20px;
+  border-radius: 12px;
+  border: 1px solid #e9ecef;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1 1 450px; 
+  max-width: 600px;
+  min-width: 320px; 
+}
+
+.add-block-form h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #495057;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 30px; 
+}
+
+
+.form-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: nowrap; 
+}
+
+
+.form-row input, 
+.form-row select, 
+.form-row button {
+  height: 40px; 
+  box-sizing: border-box; 
+  font-size: 0.95rem;
+  border-radius: 6px;
+  vertical-align: middle;
+}
+
+
+.form-row input, 
+.form-row select {
+  padding: 0 10px;
+  border: 1px solid #ced4da;
   background-color: white;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.form-row input:focus, 
+.form-row select:focus {
+  outline: none;
+  border-color: #80bdff;
+  box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
+}
+
+/* 시간 입력창 너비 */
+input[type="time"] {
+  width: 115px;
+}
+
+/* 텍스트 입력창 너비 유연하게 */
+input[type="text"] {
+  flex-grow: 1; 
+  min-width: 80px;
+}
+
+/* 폼 내부 버튼 (등록/추가) */
+.form-row button {
+  padding: 0 20px; /* 상단 버튼과 패딩도 맞춤 */
+  border: none;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  background-color: #17a2b8;
+  flex-shrink: 0;
+  white-space: nowrap;
+  line-height: 1;
+}
+.form-row button:hover { opacity: 0.9; }
+
+
+
+.danger-btn-small {
+  height: 28px;
+  padding: 0 10px;
+  font-size: 0.8rem;
+  border: 1px solid #ffc9c9;
+  background-color: #fff5f5;
+  color: #e03131;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+.danger-btn-small:hover { background-color: #ffe3e3; }
+
+
+/* --- 요일/시간 선택 체크박스 영역 --- */
+.day-checkboxes {
+  margin-top: 5px;
+  padding-top: 10px;
+  border-top: 1px dashed #dee2e6;
+  display: flex;
+  flex-wrap: nowrap; 
+  gap: 10px;
+  overflow-x: auto;
+  align-items: center;
+  white-space: nowrap;
+  font-size: 0.9rem;
+  color: #495057;
+}
+.day-checkboxes::-webkit-scrollbar { display: none; }
+
+.day-checkboxes label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* --- 메인 컨텐츠 영역 --- */
+main {
+  padding: 30px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* --- 조교 관리 리스트 (하단) --- */
+.ta-manage-list {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.ta-manage-list h3 {
+    margin: 0 0 15px 0;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+    color: #333;
+    text-align: left;
 }
 
 .ta-manage-list ul {
@@ -168,71 +232,28 @@
   padding: 0;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  /* 반응형 그리드 */
-  gap: 10px;
+  gap: 15px;
 }
 
 .ta-manage-list li {
-  background-color: #f8f9fa;
-  padding: 10px;
-  border-radius: 5px;
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  padding: 12px 15px;
+  border-radius: 8px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid #eee;
+  font-weight: 500;
+  color: #555;
 }
 
 .delete-ta-btn {
   background: none;
-  border: 1px solid #dc3545;
-  color: #dc3545;
-  border-radius: 4px;
+  border: none;
+  color: #adb5bd;
   cursor: pointer;
-  padding: 2px 8px;
-  font-size: 0.8rem;
-}
-
-.delete-ta-btn:hover {
-  background-color: #dc3545;
-  color: white;
-}
-
-
-
-.day-checkboxes {
-  margin-top: 10px;
-  padding-top: 10px;
-  border-top: 1px dashed #ccc;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-  justify-content: center;
   font-size: 0.9rem;
-  color: #333;
+  padding: 5px;
+  transition: color 0.2s;
 }
-
-.day-checkboxes label {
-  display: flex;
-  align-items: center;
-  gap: 3px;
-}
-
-
-
-.danger-btn-small {
-  background-color: transparent;
-  color: #dc3545;
-  border: 1px solid #dc3545;
-  padding: 3px 8px;
-  font-size: 0.8rem;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-
-
-.danger-btn-small:hover {
-  background-color: #dc3545;
-  color: white;
-}
+.delete-ta-btn:hover { color: #dc3545; }
